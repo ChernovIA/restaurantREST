@@ -15,7 +15,7 @@ public class Dish implements Model {
     @Column(name = "name")
     private String name;
 
-    @OneToMany(mappedBy = "dish")
+    @OneToMany(mappedBy = "dish", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Menu> menu;
 
     public Dish(){
