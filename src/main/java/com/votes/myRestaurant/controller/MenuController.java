@@ -11,6 +11,7 @@ import com.votes.myRestaurant.repository.RestaurantDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -19,7 +20,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("/rest/admin/menu")
+@RequestMapping("/rest/menu")
 public class MenuController {
 
     private final MenuDAO menuDAO;
@@ -33,21 +34,22 @@ public class MenuController {
         this.dishDAO = dishDAO;
     }
 
-    @GetMapping("/{restaurantId}-{localDate}")
+    @GetMapping("/restaurant/{restaurantId}/date/{localDate}")
     public ResponseEntity<List<MenuDTO>> getAllDish(@PathVariable Long restaurantId, @PathVariable LocalDate localDate){
 
         List<Menu> menus;
 
         if (localDate != null) {
-            menus = menuDAO.getAllByRestaurantIdAndDate(restaurantId, localDate);
+            menus = menuDAO.getAllByRestaurantIdAndDateOrderByDish(restaurantId, localDate);
         }
         else {
-            menus = menuDAO.getAllByRestaurantIdAndDate(restaurantId, LocalDate.now());
+            menus = menuDAO.getAllByRestaurantIdAndDateOrderByDish(restaurantId, LocalDate.now());
         }
         return ResponseEntity.ok(ConverterFromModelToDTO.convertMenu(menus));
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<String> delete(@PathVariable Long id){
         Optional<Menu> menu = menuDAO.findById(id);
         if (menu.isPresent()) {
@@ -60,6 +62,7 @@ public class MenuController {
     }
 
     @PostMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<MenuDTO> addInMenu(@RequestParam Long restaurantId,
                                           @RequestParam Long dishId,
                                           @RequestParam LocalDate localDate,
@@ -68,6 +71,7 @@ public class MenuController {
     }
 
     @PutMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<MenuDTO> updateInMenu(@RequestParam Long menuId,
                                              @RequestParam Long restaurantId,
                                              @RequestParam Long dishId,

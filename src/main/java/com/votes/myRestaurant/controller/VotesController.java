@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -39,7 +40,7 @@ public class VotesController {
         this.votesStatistic = votesStatistic;
     }
 
-    @RequestMapping("/vote/{restaurantId}")
+    @GetMapping("/vote/restaurant/{restaurantId}")
     public ResponseEntity<VoteDTO> addVote(@PathVariable Long restaurantId){
 
         User auth = (User)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -81,7 +82,7 @@ public class VotesController {
         return ResponseEntity.ok(ConverterFromModelToDTO.convertVote(vote));
     }
 
-    @RequestMapping("/statistic/{restaurantId}-{localDate}")
+    @GetMapping("/statistic/restaurant/{restaurantId}/date/{localDate}")
     public ResponseEntity<VoteStatisticDTO> getRestaurantStatistic(@PathVariable Long restaurantId, @PathVariable LocalDate localDate){
 
         VoteStatisticDTO voteStatisticDTO = new VoteStatisticDTO();

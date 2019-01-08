@@ -9,5 +9,5 @@ import java.util.List;
 
 @Repository
 public interface MenuDAO extends JpaRepository<Menu, Long> {
-    List<Menu> getAllByRestaurantIdAndDate(Long id, LocalDate localDate);
+    List<Menu> getAllByRestaurantIdAndDateOrderByDish(Long id, LocalDate localDate);
 }

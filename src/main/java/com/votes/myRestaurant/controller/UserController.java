@@ -7,6 +7,7 @@ import com.votes.myRestaurant.repository.UserDAO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
@@ -14,7 +15,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.util.List;
 
 @RestController
-@RequestMapping("/rest/admin/user")
+@RequestMapping("/rest/user")
 public class UserController extends SimpleController<UserDAO, User> {
 
     private final PasswordEncoder passwordEncoder;
@@ -26,11 +27,13 @@ public class UserController extends SimpleController<UserDAO, User> {
     }
 
     @GetMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<UserDTO>> getAllUser() {
         return ResponseEntity.ok(ConverterFromModelToDTO.convertUser(super.getAllEntities()));
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<String> deleteUser(@PathVariable Long id) {
         if (id == 1){
             throw new ResponseStatusException(HttpStatus.I_AM_A_TEAPOT, "Admin cant be deleted!");
@@ -39,11 +42,13 @@ public class UserController extends SimpleController<UserDAO, User> {
     }
 
     @PostMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<UserDTO> addUser(@RequestParam String name, @RequestParam String password) {
         return ResponseEntity.ok(ConverterFromModelToDTO.convertUser(save(null, name, password)));
     }
 
     @PutMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<UserDTO> updateUser(@RequestParam Long id, @RequestParam String name, @RequestParam String password) {
         if (id != null && id > 0) {
             return ResponseEntity.ok(ConverterFromModelToDTO.convertUser(save(id, name, password)));

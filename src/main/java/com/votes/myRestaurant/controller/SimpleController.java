@@ -81,19 +81,28 @@ abstract class SimpleController<T extends JpaRepository<V, Long>, V extends Mode
         String operation = "create";
 
         if (id != null && id > 0) {
-            entity.setId(id);
+            Optional<V> optEntity = implementDAO.findById(id);
+            if (optEntity.isPresent()) {
+                entity = optEntity.get();
+            }
+            else{
+                throw new ResponseStatusException(HttpStatus.CONFLICT, "Cant find "+getClassName()+" with id = "+ id +"!");
+            }
             operation = "update";
         }
         if (name != null && !name.isEmpty()) {
-            try {
                 entity.setName(name);
-                implementDAO.save(entity);
-            }
-            catch (Exception ex){
-                throw new ResponseStatusException(HttpStatus.CONFLICT, "Cant "+operation+" "+getClassName()+" with name - "+ name, ex);
-            }
-            return entity;
         }
-        throw new ResponseStatusException(HttpStatus.CONFLICT, "Cant "+operation+" "+getClassName()+", name is missing!");
+        else{
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Cant "+operation+" "+getClassName()+" with name - "+ name);
+        }
+        try {
+            implementDAO.save(entity);
+        }
+        catch (Exception ex) {
+            throw new ResponseStatusException(HttpStatus.CONFLICT, "Error while " + operation + " " + getClassName() + "!", ex);
+        }
+
+        return entity;
     }
 }

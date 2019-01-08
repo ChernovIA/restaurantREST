@@ -2,8 +2,8 @@ package com.votes.myRestaurant.dto;
 
 public class DishDTO {
 
-    private String name;
     private Long id;
+    private String name;
 
     public DishDTO(Long id, String name) {
         this.name = name;
