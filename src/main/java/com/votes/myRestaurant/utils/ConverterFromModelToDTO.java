@@ -33,13 +33,13 @@ public class ConverterFromModelToDTO {
     }
 
     public static UserDTO convertUser(User user){
-        return new UserDTO(user.getId(), user.getName());
+        return new UserDTO(user.getId(), user.getName(), UserHelper.rolesToString(user.getRoles()));
     }
 
     public static List<UserDTO> convertUser(List<User> user){
         List<UserDTO> userDTOs = new LinkedList<>();
         for(User userItem: user){
-            userDTOs.add(new UserDTO(userItem.getId(), userItem.getName()));
+            userDTOs.add(new UserDTO(userItem.getId(), userItem.getName(), UserHelper.rolesToString(userItem.getRoles())));
         }
         return userDTOs;
     }

@@ -1,9 +1,11 @@
 package com.votes.myRestaurant.controller;
 
+import com.votes.myRestaurant.model.RoleType;
 import com.votes.myRestaurant.utils.ConverterFromModelToDTO;
 import com.votes.myRestaurant.dto.UserDTO;
 import com.votes.myRestaurant.model.User;
 import com.votes.myRestaurant.repository.UserDAO;
+import com.votes.myRestaurant.utils.UserHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -43,21 +45,33 @@ public class UserController extends SimpleController<UserDAO, User> {
 
     @PostMapping
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<UserDTO> addUser(@RequestParam String name, @RequestParam String password) {
-        return ResponseEntity.ok(ConverterFromModelToDTO.convertUser(save(null, name, password)));
+    public ResponseEntity<UserDTO> addUser(@RequestParam String name,
+                                           @RequestParam String password,
+                                           @RequestParam Boolean isAdmin) {
+        return ResponseEntity.ok(ConverterFromModelToDTO.convertUser(save(null, name, password, isAdmin)));
     }
 
     @PutMapping
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<UserDTO> updateUser(@RequestParam Long id, @RequestParam String name, @RequestParam String password) {
+    public ResponseEntity<UserDTO> updateUser(@RequestParam Long id,
+                                              @RequestParam String name,
+                                              @RequestParam String password,
+                                              @RequestParam Boolean isAdmin) {
         if (id != null && id > 0) {
-            return ResponseEntity.ok(ConverterFromModelToDTO.convertUser(save(id, name, password)));
+            return ResponseEntity.ok(ConverterFromModelToDTO.convertUser(save(id, name, password, isAdmin)));
         }
         throw new ResponseStatusException(HttpStatus.CONFLICT, "Cant update "+this.getClassName()+", id is missing!");
     }
 
-    private User save(Long id, String name, String password) {
+    private User save(Long id, String name, String password, Boolean isAdmin) {
         User entity = new User();
+
+        if (isAdmin){
+            UserHelper.SetUserPermission(entity, RoleType.ADMIN);
+        }
+        else{
+            UserHelper.SetUserPermission(entity, RoleType.USER);
+        }
 
         String operation = "create";
 
