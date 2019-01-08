@@ -77,7 +77,7 @@
 			<td style="text-align:center">DELETE</td>
 			<td style="text-align:center">admin</td>
 			<td style="text-align:center">delete user</td>
-			<td style="text-align:center">&nbsp;url param {id}</td>
+			<td style="text-align:center">&nbsp;id</td>
 			<td style="text-align:center">ОК</td>
 		</tr>
 		<tr>
@@ -131,7 +131,7 @@
 			<td style="text-align:center">DELETE</td>
 			<td style="text-align:center">admin</td>
 			<td style="text-align:center">delete dish</td>
-			<td style="text-align:center">&nbsp;url param {id}</td>
+			<td style="text-align:center">&nbsp;id</td>
 			<td style="text-align:center">ОК</td>
 		</tr>
 		<tr>
@@ -187,7 +187,7 @@
 			<td style="text-align:center">DELETE</td>
 			<td style="text-align:center">admin</td>
 			<td style="text-align:center">delete restauran</td>
-			<td style="text-align:center">&nbsp;url param {id}</td>
+			<td style="text-align:center">&nbsp;id</td>
 			<td style="text-align:center">ОК</td>
 		</tr>
 		<tr>
@@ -267,7 +267,7 @@
 			<td style="text-align:center">DELETE</td>
 			<td style="text-align:center">admin</td>
 			<td style="text-align:center">delete dish from menu</td>
-			<td style="text-align:center">&nbsp;url param {id}</td>
+			<td style="text-align:center">&nbsp;id</td>
 			<td style="text-align:center">ОК</td>
 		</tr>
 		<tr>
