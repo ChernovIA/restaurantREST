@@ -14,7 +14,7 @@
 			<td style="text-align:center">Permission</td>
 			<td style="text-align:center">Description</td>
 			<td style="text-align:center">Param</td>
-			<td style="text-align: center; width: 200px;">Result</td>
+			<td style="text-align:center; width:200px">Result</td>
 		</tr>
 		<tr>
 			<td colspan="6" style="text-align:center"><strong>Users</strong></td>
@@ -28,11 +28,13 @@
 			<td>[<br />
 			&nbsp; &nbsp; {<br />
 			&nbsp; &nbsp; &nbsp; &nbsp; &quot;id&quot;: 1,<br />
-			&nbsp; &nbsp; &nbsp; &nbsp; &quot;name&quot;: &quot;admin&quot;<br />
+			&nbsp; &nbsp; &nbsp; &nbsp; &quot;name&quot;: &quot;admin&quot;,<br />
+			&nbsp; &nbsp; &nbsp; &nbsp; &quot;roles&quot;: &quot;ADMIN&quot;<br />
 			&nbsp; &nbsp; },<br />
 			&nbsp; &nbsp; {<br />
 			&nbsp; &nbsp; &nbsp; &nbsp; &quot;id&quot;: 2,<br />
-			&nbsp; &nbsp; &nbsp; &nbsp; &quot;name&quot;: &quot;user&quot;<br />
+			&nbsp; &nbsp; &nbsp; &nbsp; &quot;name&quot;: &quot;usr&quot;,<br />
+			&nbsp; &nbsp; &nbsp; &nbsp; &quot;roles&quot;: &quot;USER&quot;<br />
 			&nbsp; &nbsp; }<br />
 			]</td>
 		</tr>
@@ -44,11 +46,15 @@
 			<td>
 			<p style="text-align:center">name,</p>
 			<p style="text-align:center">password</p>
+			<p style="text-align:center">isAdmin</p>
 			</td>
-			<td>{<br />
-			&nbsp; &nbsp; &quot;id&quot;: 2,<br />
-			&nbsp; &nbsp; &quot;name&quot;: &quot;usr&quot;<br />
-			}</td>
+			<td>
+			<p>&nbsp; &nbsp; {<br />
+			&nbsp; &nbsp; &nbsp; &nbsp; &quot;id&quot;: 2,<br />
+			&nbsp; &nbsp; &nbsp; &nbsp; &quot;name&quot;: &quot;usr&quot;,<br />
+			&nbsp; &nbsp; &nbsp; &nbsp; &quot;roles&quot;: &quot;USER&quot;<br />
+			&nbsp; &nbsp; }</p>
+			</td>
 		</tr>
 		<tr>
 			<td style="text-align:center"><strong>/rest/user</strong></td>
@@ -58,11 +64,13 @@
 			<td style="text-align:center">
 			<p style="text-align:center">id, name,</p>
 			<p style="text-align:center">password</p>
+			<p style="text-align:center">isAdmin</p>
 			</td>
-			<td>{<br />
-			&nbsp; &nbsp; &quot;id&quot;: 2,<br />
-			&nbsp; &nbsp; &quot;name&quot;: &quot;new_user&quot;<br />
-			}</td>
+			<td>&nbsp; &nbsp; {<br />
+			&nbsp; &nbsp; &nbsp; &nbsp; &quot;id&quot;: 2,<br />
+			&nbsp; &nbsp; &nbsp; &nbsp; &quot;name&quot;: &quot;new_usr&quot;,<br />
+			&nbsp; &nbsp; &nbsp; &nbsp; &quot;roles&quot;: &quot;USER&quot;<br />
+			&nbsp; &nbsp; }</td>
 		</tr>
 		<tr>
 			<td style="text-align:center"><strong>/rest/user/{id}</strong></td>
