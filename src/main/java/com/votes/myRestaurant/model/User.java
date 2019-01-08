@@ -18,7 +18,7 @@ public class User implements Model, UserDetails {
     @Column(name = "id")
     private long id;
 
-    @Column(name = "userName")
+    @Column(name = "userName", unique = true)
     private String name;
 
     @Column(name = "password")
@@ -32,7 +32,7 @@ public class User implements Model, UserDetails {
     @JoinColumn(name = "user_id")
     private Set<Role> roles = new HashSet<>();
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", orphanRemoval = true)
     private List<Vote> votes;
 
     public User(){
