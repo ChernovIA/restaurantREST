@@ -15,7 +15,7 @@ public class ConverterFromModelToDTO {
     public static List<DishDTO> convertDish(List<Dish> dish){
         List<DishDTO> dishDTOs = new LinkedList<>();
         for(Dish dishItem: dish){
-            dishDTOs.add(new DishDTO(dishItem.getId(), dishItem.getName()));
+            dishDTOs.add(convertDish(dishItem));
         }
         return dishDTOs;
     }
@@ -27,7 +27,7 @@ public class ConverterFromModelToDTO {
     public static List<RestaurantDTO> convertRestaurant(List<Restaurant> dish){
         List<RestaurantDTO> restaurantDTOs = new LinkedList<>();
         for(Restaurant restaurantItem: dish){
-            restaurantDTOs.add(new RestaurantDTO(restaurantItem.getId(), restaurantItem.getName()));
+            restaurantDTOs.add(convertRestaurant(restaurantItem));
         }
         return restaurantDTOs;
     }
@@ -39,7 +39,7 @@ public class ConverterFromModelToDTO {
     public static List<UserDTO> convertUser(List<User> user){
         List<UserDTO> userDTOs = new LinkedList<>();
         for(User userItem: user){
-            userDTOs.add(new UserDTO(userItem.getId(), userItem.getName(), UserHelper.rolesToString(userItem.getRoles())));
+            userDTOs.add(convertUser(userItem));
         }
         return userDTOs;
     }
@@ -51,19 +51,19 @@ public class ConverterFromModelToDTO {
     public static List<MenuDTO> convertMenu(List<Menu> menu){
         List<MenuDTO> menuDTOS = new LinkedList<>();
         for(Menu menuItem: menu){
-            menuDTOS.add(new MenuDTO(menuItem.getId(), menuItem.getDate(),menuItem.getRestaurant().toString(), menuItem.getDish().toString(), menuItem.getPrice()));
+            menuDTOS.add(convertMenu(menuItem));
         }
         return menuDTOS;
     }
 
     public static VoteDTO convertVote(Vote vote){
-        return new VoteDTO(vote.getId(), vote.getDate(),vote.getUser().toString(), vote.getRestaurant().toString());
+        return new VoteDTO("Your vote for "+ vote.getRestaurant().getName() + " was counted");
     }
 
     public static List<VoteDTO> convertVote(List<Vote> vote){
         List<VoteDTO> voteDTOs = new LinkedList<>();
         for(Vote voteItem: vote){
-            voteDTOs.add(new VoteDTO(voteItem.getId(), voteItem.getDate(), voteItem.getUser().toString(), voteItem.getRestaurant().toString()));
+            voteDTOs.add(convertVote(voteItem));
         }
         return voteDTOs;
     }
