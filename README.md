@@ -287,10 +287,7 @@
 			<p style="text-align:center">restaurantId</p>
 			</td>
 			<td>{<br />
-			&nbsp; &nbsp; &quot;id&quot;: 1,<br />
-			&nbsp; &nbsp; &quot;date&quot;: &quot;2019-01-07&quot;,<br />
-			&nbsp; &nbsp; &quot;user&quot;: &quot;usr&quot;,<br />
-			&nbsp; &nbsp; &quot;restaurant&quot;: &quot;PizzaHat&quot;<br />
+			&nbsp;&nbsp;&quot;notify&quot;:&quot;Your vote for PizzaHat was counted&quot;<br />
 			}</td>
 		</tr>
 		<tr>
